@@ -8,6 +8,7 @@ startingBooks = {
             "name" : "The Way of Kings",
             "author" : "Brandon Sanderson",
             "count" : 2,
+            "year"  : 2010,
             "genre" : "Epic fantasy"
         },
      
@@ -15,18 +16,15 @@ startingBooks = {
             "name" : "Red Rising",
             "author" : "Pierce Brown",
             "count" : 1,
+            "year"  : 2014,
             "genre" : "Science fiction"
         },
 }
 
 library = Library(startingBooks)
-
-
-print(library.FormatBooks(library.lib))
-
 ProcessInput("hjelp", library)
 
 #The console loop
 while True:
-    inp = input(">>>")
+    inp = input("\033[93m>>>\033[0m")
     ProcessInput(inp, library)

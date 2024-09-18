@@ -3,7 +3,7 @@ class Library(object):
         # Books er strukturert som ett object, der key er ISBN og value er enda ett objekt {name, author, count}
         self.lib = books
         self.loaned = {}
-        self.borrowedCount = {}
+        self.loanedCount = {}
     
     #Since no two books can have the same ISBN, only one book needs to be returned
     def SearchISBN(self, isbn):
@@ -27,16 +27,36 @@ class Library(object):
         return books
     
     #Formats books so it is easier to read when printed to console
-    def FormatBooks(self, books):
+    def FormatBooks(self, books, index=False):
         fmt = ""
+        i = 0
         for isbn in books:
             book = self.lib[isbn]
-            fmt += f"'{book['name']}' by \x1B[3m{book['author']}\x1B[0m | ISBN: {isbn} | Vi har {book['count']}\n"
+            pfx = f"{i}: " if index else ""
+            fmt += f"{pfx}'\033[1m{book['name']}\033[0m' : {book['genre']} by \x1B[3m{book['author']} ({book['year']})\x1B[0m | ISBN: {isbn} | Vi har {book['count']}\n"
+            i += 1
         return fmt
     
     def AddLoaned(self, isbn, name):
-        self.loaned.update({isbn, "name" : name})
+        if not isbn in self.loaned:
+            self.loaned.update({isbn : [name.lower()]})
+        else:
+            self.loaned[isbn].append(name.lower())
+        print(self.loaned)
+        
+        if isbn in self.loanedCount:
+            self.loanedCount[isbn] += 1
+        else:
+            self.loanedCount.update({isbn : 1})
+            
+    def RemoveLoaned(self, isbn, name):
+        if len(self.loaned[isbn]) > 1:
+            self.loaned[isbn].remove(name)
+            return
+        del(self.loaned[isbn])          
     
+    
+    ##### Noh #####
     def LoanBook(self, isbn):
         # Søk etter bok basert på ISBN
         for code in self.lib:
@@ -51,18 +71,22 @@ class Library(object):
                     return False # Avslutt funksjonen
         print(f"Ingen bok med ISBN {isbn} funnet.")  # Hvis ingen bok med det oppgitte ISBN finnes
     
-    def ReturnBook(self, isbn):
+    def ReturnBook(self, isbn, name):
         # Søk etter bok basert på ISBN
         for code in self.lib:
             book = self.lib[code]
             if code == isbn:  # Sjekk om ISBN matcher
-                if not isbn in self.loaned:  # Sjekk om boken er utlånt
-                    book['count'] += 1   # Marker boken som tilgjengelig igjen
-                    print(f"Boken '{book['name']}' er nå returnert.")  # Informer brukeren
-                    return  # Avslutt funksjonen
+                if isbn in self.loaned:  # Sjekk om boken er utlånt
+                    if name in self.loaned[isbn]:
+                        book['count'] += 1   # Marker boken som tilgjengelig igjen
+                        print(f"Boken '{book['name']}' er nå returnert.")  # Informer brukeren
+                        return True  # Avslutt funksjonen
+                    else:
+                        print(f"Denne personen har ikke lånt '{book['name']}'")  # Informer brukeren
+                        return False
                 else:
                     print(f"Boken '{book['name']}' var ikke utlånt.")  # Hvis boken ikke var utlånt
-                    return  # Avslutt funksjonen
+                    return False  # Avslutt funksjonen
                 
         print(f"Ingen bok med ISBN {isbn} funnet.")  # Hvis ingen bok med det oppgitte ISBN finnes
         
