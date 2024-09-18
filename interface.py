@@ -6,7 +6,8 @@ def ProcessInput(inp, library):
             print("Mulige kommandoer:\nlån (dersom du vil låne en bok)\nreturner (dersom du skal returnere en bok)\nsøk (dersom du skal søke på en bok)\nliste (gir deg en liste over alle bøkene)\npopulære (gir den en liste sortert på antall ganer en bok er lånt)\nlukk (lagrer dataene og lukker programmet)")
         #Borrows a book
         case "lån":
-            pass
+            inp = input("Skriv isbn på boken du ønsker å låne\n>>>")
+            
         #Returns a book
         case "returner":
             pass
