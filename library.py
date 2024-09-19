@@ -1,14 +1,16 @@
 class Library(object):
-    def __init__(self, books={}):
+    def __init__(self, books={}, loaned={}):
         # Books er strukturert som ett object, der key er ISBN og value er enda ett objekt {name, author, count}
         self.lib = books
-        self.loaned = {}
+        self.loaned = loaned
         self.loanedCount = {}
     
     #Since no two books can have the same ISBN, only one book needs to be returned
     def SearchISBN(self, isbn):
+        if not isbn in self.lib:
+            return None
         book = self.lib[isbn]
-        return book if book != None else "Ingen bok funnet"
+        return book
     
     #Goes over all books and makes a collection of books with the same name (if theres duplicates)
     def SearchName(self, name):
@@ -42,8 +44,7 @@ class Library(object):
             self.loaned.update({isbn : [name.lower()]})
         else:
             self.loaned[isbn].append(name.lower())
-        print(self.loaned)
-        
+                    
         if isbn in self.loanedCount:
             self.loanedCount[isbn] += 1
         else:

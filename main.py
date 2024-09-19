@@ -1,30 +1,15 @@
-from book import Book
 from library import Library
 from interface import *
+from jsonModule import *
 
-#This will be replaced with a JSON file reader/writer
-startingBooks = {
-    	"9780765326355" : {
-            "name" : "The Way of Kings",
-            "author" : "Brandon Sanderson",
-            "count" : 2,
-            "year"  : 2010,
-            "genre" : "Epic fantasy"
-        },
-     
-        "0345539788" : {
-            "name" : "Red Rising",
-            "author" : "Pierce Brown",
-            "count" : 1,
-            "year"  : 2014,
-            "genre" : "Science fiction"
-        },
-}
+#Initializes the library class using the json files
+library = Library(books=ReadJSON("Høstsemester/Bokoversiktssystem/books.json"), loaned=ReadJSON("Høstsemester/Bokoversiktssystem/loaned.json"))
 
-library = Library(startingBooks)
+#Prints a list of commands
 ProcessInput("hjelp", library)
 
 #The console loop
 while True:
-    inp = input("\033[93m>>>\033[0m")
-    ProcessInput(inp, library)
+    #Get the users input and process it
+    inp = input("\033[93m>\033[0m")
+    ProcessInput(inp, library, jsonPath='Høstsemester/Bokoversiktssystem/books.json')
