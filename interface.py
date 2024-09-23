@@ -9,11 +9,12 @@ def ProcessInput(inp, library, jsonPath='data.json'):
         #Borrows a book
         case "lån":
             while True:
+                #Takes in the user's input
                 bookName = input("\033[96mSkriv navn på boken du ønsker å låne\033[0m\n\033[93m>>>\033[0m").lower()
                 if bookName == "avbryt":
                     return
-                
-                #Søk etter hvilken bok, dersom flere bøker har samme navn kan brukeren velge hvilken av bøkene de ønsker å velge
+
+                #Search for the book that the user has chosen                
                 books = library.SearchName(bookName)
                 book = None
                 if len(books) == 0:
@@ -85,6 +86,7 @@ def ProcessInput(inp, library, jsonPath='data.json'):
                     library.RemoveLoaned(book, name)
                     ReplaceJSON(library.loaned, filename='Høstsemester/Bokoversiktssystem/loaned.json')
                     ReplaceJSON(library.lib, filename='Høstsemester/Bokoversiktssystem/books.json')
+                    return
         #Search for a book
         case "søk":
             #Another input loop since more inputs are required with correct formatting
@@ -142,6 +144,7 @@ def ProcessInput(inp, library, jsonPath='data.json'):
         case "legg til":
             info = GetBookInfo()
             WriteToJSON(info, filename=jsonPath)
+            library.lib = ReadJSON(filename=jsonPath)
         
         case "lukk":
             exit()

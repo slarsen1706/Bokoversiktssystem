@@ -1,21 +1,25 @@
 import json
 import os
+import re
 
 ### Mohammed ###
 def GetBookInfo():
     # Collecting book information from the user
     ISBN = input("Enter the ISBN number of the book: ")
+    ISBN = ISBN.replace('-', '')
     title = input("Enter the book title: ")
     author = input("Enter the author's name: ")
     year = input("Enter the year of publication: ")
     genre = input("Enter the genre of the book: ")
+    count = input("Enter how many to add: ")
  
     return {
         ISBN : {
-            "title": title,
+            "name": title,
             "author": author,
             "year": year,
-            "genre": genre
+            "genre": genre,
+            "count": count
         }
     }
  
@@ -38,7 +42,7 @@ def WriteToJSON(info, filename='data.json'):
     with open(filename, 'w') as json_file:
         json.dump(data, json_file, indent=4)
  
-    print(f"Book information has been written to {filename}.")
+    print(f"Information has been written to {filename}.")
 
 ### Sander ###
 def RemoveFromJSON(id, filename='data.json'):

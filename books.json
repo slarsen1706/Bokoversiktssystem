@@ -3,16 +3,37 @@
         "9780765326355": {
             "name": "The Way of Kings",
             "author": "Brandon Sanderson",
-            "count": 3,
             "year": 2010,
-            "genre": "Epic fantasy"
+            "genre": "Epic fantasy",
+            "count": 1
         },
         "0345539788": {
             "name": "Red Rising",
             "author": "Pierce Brown",
-            "count": 0,
             "year": 2014,
-            "genre": "Science fiction"
+            "genre": "Science fiction",
+            "count": 1
+        },
+        "9780439023528": {
+            "name": "The Hunger Games",
+            "author": "Suzanne Collins",
+            "year": "2008",
+            "genre": "Science Fiction",
+            "count": 2
+        },
+        "9780545227247": {
+            "name": "Catching Fire",
+            "author": "Suzanne Collins",
+            "year": "2009",
+            "genre": "Science Fiction",
+            "count": "3"
+        },
+        "9788202740139": {
+            "name": "Kraft 2",
+            "author": "Janne-Christine Fossum",
+            "year": "2021",
+            "genre": "Education",
+            "count": "20"
         }
     }
 ]
