@@ -39,6 +39,7 @@ class Library(object):
             i += 1
         return fmt
     
+    #Adds and removes the loaned boks in the JSON files
     def AddLoaned(self, isbn, name):
         if not isbn in self.loaned:
             self.loaned.update({isbn : [name.lower()]})
@@ -55,7 +56,6 @@ class Library(object):
             self.loaned[isbn].remove(name)
             return
         del(self.loaned[isbn])          
-    
     
     ##### Noh #####
     def LoanBook(self, isbn):
